@@ -1,11 +1,15 @@
 package com.busleiman.kafkamodel1.model;
 
 
-import lombok.Builder;
-import lombok.ToString;
+import lombok.*;
 
+
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @ToString
+@Getter
+@Setter
 public class Order {
 
     private String orderId;
@@ -14,7 +18,7 @@ public class Order {
     private String firstName;
     private String lastName;
     private int items;
-    private float price;
-    private float weight;
+    private double price;
+    private double weight;
     private boolean automatedEmail;
 }
