@@ -60,6 +60,13 @@
 			<artifactId>lombok</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.busleiman</groupId>
+			<artifactId>kafka-dto</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<repositories>

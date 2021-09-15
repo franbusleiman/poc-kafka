@@ -1,8 +1,7 @@
 package com.busleiman.kafkamodel1.config;
 
 
-import com.busleiman.kafkamodel1.model.Order;
-import com.busleiman.kafkamodel1.model.Response;
+import com.busleiman.kafkadto.model.Message;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.IntegerDeserializer;
@@ -30,7 +29,7 @@ public class KafkaConfigurations {
         props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "100");
         props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "15000");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class);
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, new JsonDeserializer<Response>());
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, new JsonDeserializer<Message>());
         return props;
     }
 
@@ -49,15 +48,15 @@ public class KafkaConfigurations {
     }
 
     @Bean
-    public ConsumerFactory<String, Order> consumerFactory() {
-        return new DefaultKafkaConsumerFactory<>(consumerProperties(),  new StringDeserializer(),
-                new JsonDeserializer<>(Order.class,false));
+    public ConsumerFactory<String, Message> consumerFactory() {
+        return new DefaultKafkaConsumerFactory<>(consumerProperties(), new StringDeserializer(),
+                new JsonDeserializer<>(Message.class, false));
     }
 
 
     @Bean(name = "listenerContainerFactory")
-    public ConcurrentKafkaListenerContainerFactory<String, Order> concurrentKafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, Order> listener = new ConcurrentKafkaListenerContainerFactory<>();
+    public ConcurrentKafkaListenerContainerFactory<String, Message> concurrentKafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, Message> listener = new ConcurrentKafkaListenerContainerFactory<>();
 
         listener.setConsumerFactory(consumerFactory());
         listener.setReplyTemplate(getKafkaTemplate());
